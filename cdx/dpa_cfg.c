@@ -1020,7 +1020,7 @@ void *dpa_get_tdinfo(uint32_t fm_index, uint32_t port_idx, uint32_t type)
 {
 	struct cdx_fman_info *finfo;
 	struct table_info *tinfo;
-	uint32_t ii;
+	uint32_t ii, jj;
 
 	if (port_idx >= 32)
 		return NULL;
@@ -1031,7 +1031,7 @@ void *dpa_get_tdinfo(uint32_t fm_index, uint32_t port_idx, uint32_t type)
 		if (finfo->index == fm_index) {
 			tinfo = finfo->tbl_info;
 			//scan all tables with this instance
-			for (ii = 0; ii < finfo->num_tables; ii++) {
+			for (jj = 0; jj < finfo->num_tables; jj++) {
 				//return if type and port index match
 				if ((tinfo->type == type) &&
 						(tinfo->port_idx & (1U << port_idx))) {
@@ -1043,6 +1043,7 @@ void *dpa_get_tdinfo(uint32_t fm_index, uint32_t port_idx, uint32_t type)
 					__func__, type, fm_index);
 			return NULL;
 		}
+		finfo++;
 	}
 	DPA_ERROR("%s::invalid index %d\n", __func__, fm_index);	
 	return NULL;
