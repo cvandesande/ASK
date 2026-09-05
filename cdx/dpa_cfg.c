@@ -1091,6 +1091,7 @@ int cdx_get_policer_profile_id(uint32_t fm_index, uint32_t queue_no)
 			else
 				break;
 		}
+		finfo++;
 	}
 	return 0;
 }
